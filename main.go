@@ -1,11 +1,11 @@
 package main
 
 import (
-	"fmt"
 	"niclas-timm/cozy-cache/config"
+	"niclas-timm/cozy-cache/cozy"
 )
 
 func main() {
 	config := config.ReadConfig()
-	fmt.Println(config.Url)
+	cozy.RunCacheWarmer(config)
 }
