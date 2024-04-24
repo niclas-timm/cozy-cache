@@ -20,7 +20,7 @@ type SitemapUrl struct {
 }
 
 func parseSitemap(config config.Config) Sitemap {
-	res, err := http.Get(config.Url + "/sitemap.xml?page=1")
+	res, err := http.Get(config.Url + "/sitemap.xml?page=2")
 	if err != nil {
 		fmt.Printf("Error while fetching sitemap.xml: %s", err)
 		os.Exit(1)
