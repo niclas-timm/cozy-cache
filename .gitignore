@@ -23,3 +23,5 @@ go.work
 api.md
 
 cozy-cache.json
+
+/bin
