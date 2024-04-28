@@ -30,3 +30,16 @@ Create a `cozy-cache.json` file with the following content:
 `exclude` is the opposite of priorities. Any path matching this pattern will not be cached (pinged).
 
 `limit` determines after how many pings cozy-cache will stop. Set to 0 or omit if you don't need a limit.
+
+## Compilation
+
+The repo includes a Makefile with some commands that will help you compiling the application. These are the commands at your disposal:
+```bash
+make compile-all # compile binaries for all operating systems
+
+make compile-mac # compile for MacOs
+
+make compile-linux # compile for Linux
+
+make comile-windows # compile for Windows
+```
