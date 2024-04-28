@@ -3,8 +3,9 @@ package cozy
 import (
 	"fmt"
 	"net/http"
+	"net/url"
 	"niclas-timm/cozy-cache/config"
-	"strings"
+	"path/filepath"
 )
 
 func RunCacheWarmer(config config.Config) {
@@ -58,12 +59,18 @@ func walkSitemapUrls(config config.Config, sitemap Sitemap) {
 }
 
 func checkForSubstringInSlice(find []string, search string) bool {
-	c := false
+	url, err := url.Parse(search)
+	if err != nil {
+		panic(err)
+	}
 	for _, s := range find {
-		if strings.Contains(search, s) {
-			c = true
-			break
+		match, err := filepath.Match(s, url.Path)
+		if err != nil {
+			panic(err)
+		}
+		if match {
+			return true
 		}
 	}
-	return c
+	return false
 }
