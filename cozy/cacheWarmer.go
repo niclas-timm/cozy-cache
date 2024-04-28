@@ -2,6 +2,7 @@ package cozy
 
 import (
 	"fmt"
+	"log"
 	"net/http"
 	"net/url"
 	"niclas-timm/cozy-cache/config"
@@ -30,7 +31,7 @@ func walkSitemapUrls(config config.Config, sitemap Sitemap) {
 			skipped = append(skipped, url)
 			continue
 		}
-		http.Get(url.Url)
+		ping(url.Url)
 		pingedPriorityUrls++
 		totalPinged++
 	}
@@ -50,7 +51,7 @@ func walkSitemapUrls(config config.Config, sitemap Sitemap) {
 		if checkForSubstringInSlice(config.Exclude, url.Url) {
 			continue
 		}
-		http.Get(url.Url)
+		ping(url.Url)
 		pingedNonPriorityUrls++
 		totalPinged++
 	}
@@ -73,4 +74,14 @@ func checkForSubstringInSlice(find []string, search string) bool {
 		}
 	}
 	return false
+}
+
+func ping(url string) {
+	client := &http.Client{}
+	req, err := http.NewRequest("GET", url, nil)
+	if err != nil {
+		log.Fatal(err)
+	}
+	req.Header.Set("User-Agent", "Cozy Cache 1.0")
+	client.Do(req)
 }
