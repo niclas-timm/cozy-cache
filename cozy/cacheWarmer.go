@@ -46,6 +46,9 @@ func walkSitemapUrls(config config.Config, sitemap Sitemap) {
 			fmt.Printf("Reached ping limit of %d. Aborting.\n", config.Limit)
 			break
 		}
+		if checkForSubstringInSlice(config.Exclude, url.Url) {
+			continue
+		}
 		http.Get(url.Url)
 		pingedNonPriorityUrls++
 		totalPinged++
